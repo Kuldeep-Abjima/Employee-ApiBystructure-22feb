@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Employee_ApiBystructure</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Scrutor" Version="4.2.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Employee.microserivce.services\Employee.microserivce.services.csproj" />
+    <ProjectReference Include="..\employee.microservice.DataInterface\employee.microservice.DataInterface.csproj" />
+    <ProjectReference Include="..\Employee.microservices.Data\Employee.microservices.Data.csproj" />
+    <ProjectReference Include="..\Employee.Microservices.serviceInterface\Employee.Microservices.serviceInterface.csproj" />
+  </ItemGroup>
+
+</Project>

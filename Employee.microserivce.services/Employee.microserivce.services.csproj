@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\employee.microservice.DataInterface\employee.microservice.DataInterface.csproj" />
+    <ProjectReference Include="..\Employee.microservice.domain\Employee.microservice.domain.csproj" />
+    <ProjectReference Include="..\Employee.microservice.model\Employee.microservice.model.csproj" />
+    <ProjectReference Include="..\Employee.Microservices.serviceInterface\Employee.Microservices.serviceInterface.csproj" />
+  </ItemGroup>
+
+</Project>
