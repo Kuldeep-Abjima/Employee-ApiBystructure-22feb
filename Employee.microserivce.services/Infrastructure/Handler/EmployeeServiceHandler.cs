@@ -3,11 +3,6 @@ using Employee.microserivce.services.Infrastructure.Builder.Interface;
 using Employee.microserivce.services.Infrastructure.Handler.Interface;
 using Employee.microservice.model;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Employee.microserivce.services.Infrastructure.Handler
 {
@@ -30,5 +25,44 @@ namespace Employee.microserivce.services.Infrastructure.Handler
             return await _emloyeeRepository.AddEmployee(dto);
         }
 
+        public async Task<List<EmployeeModel>> HandleGetAllEmployee()
+        {
+            var result = await _emloyeeRepository.GetAllEmployees();
+            return result.Select(x=> _employeeBuilder.Build(x)).ToList();
+        }
+
+        public async Task<EmployeeModel> handlerGetEmployeebyId(long id)
+        {
+            var result = await _emloyeeRepository.GetByIdEmployee(id);
+            return _employeeBuilder.Build(result);
+        }
+
+        public async Task<bool> HandlerUpdateEmployee(long id, EmployeeModel employeeModel)
+        {
+            var dto = _employeeBuilder.Build(employeeModel);
+            var result = await _emloyeeRepository.GetByIdEmployee(id);
+            if(result != null)
+            {
+                return await _emloyeeRepository.UpdateEmployeebyId(result.EmpId,dto);
+            }
+            else
+            {
+                _logger.LogError("employee data not found");
+                return false;
+            }
+        }
+        public async Task<bool> HandlerDeleteEmployee(long id)
+        {
+            var result = await _emloyeeRepository.GetByIdEmployee(id);
+            if(result != null )
+            {
+                return await _emloyeeRepository.DeleteEmployeeById(result.EmpId);
+            }
+            else
+            {
+                _logger.LogError("employee data not found");
+                return false;
+            }
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace Employee.microservices.Data.Repository
         {
             var parameter = new DynamicParameters();
             parameter.Add("@identifier", employeeDto.Identifier);
-            parameter.Add("@EmployeeName", employeeDto.Name);
+            parameter.Add("@EmployeeName", employeeDto.EmployeeName);
             parameter.Add("@Email",employeeDto.Email);
             parameter.Add("@Category", employeeDto.Category);
             parameter.Add("@Gender", employeeDto.Gender);
@@ -33,9 +33,42 @@ namespace Employee.microservices.Data.Repository
             return result > 0 ? true : false;
 
         }
+
+        public async Task<List<EmployeeDto>> GetAllEmployees()
+        {
+            var result = await Datacontext.QueryAsync<EmployeeDto>("select * from employee", commandType: System.Data.CommandType.Text);
+            return result.ToList();
+        }
+
+        public async Task<EmployeeDto> GetByIdEmployee(long id)
+        {
+            var para = new DynamicParameters();
+            para.Add("@id", id);
+            var result = await Datacontext.QueryFirstOrDefaultAsync<EmployeeDto>($"sp_GetByIdEmployee", para, commandType: System.Data.CommandType.StoredProcedure);
+            return result;
+        }
         
+        public async Task<bool> UpdateEmployeebyId(long id, EmployeeDto employeeDto)
+        {
+            var para = new DynamicParameters();
+            para.Add("@id", id);
+            para.Add("@employeeName", employeeDto.EmployeeName);
+            para.Add("@email", employeeDto.Email);
+            para.Add("@category", employeeDto.Category);
+            para.Add("@gender", employeeDto.Gender);
+            para.Add("@updatedat", employeeDto.Updatedat);
+            var result = await Datacontext.QueryFirstOrDefaultAsync<int>("sp_updateEmployeebyId", para, commandType: System.Data.CommandType.StoredProcedure);
+            return result > 0 ? true : false;
+        }
 
         
+        public async Task<bool> DeleteEmployeeById(long id)
+        {
+            var para = new DynamicParameters();
+            para.Add("@id",id);
+            var result = await Datacontext.QueryFirstOrDefaultAsync<int>("sp_deleteEmployeeById", para, commandType: System.Data.CommandType.StoredProcedure);
+            return result > 0 ? true : false;
 
+        }
     }
 }

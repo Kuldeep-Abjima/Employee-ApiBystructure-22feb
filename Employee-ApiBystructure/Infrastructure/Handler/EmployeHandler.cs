@@ -26,7 +26,7 @@ namespace Employee_ApiBystructure.Infrastructure.Handler
                     throw new ArgumentNullException(nameof(employeeModel));
 
                 }
-                result =  await _employeeService.AddStudentAsync(employeeModel);
+                result =  await _employeeService.AddEmployeeAsync(employeeModel);
                 
             }
             catch(Exception ex)
@@ -35,6 +35,81 @@ namespace Employee_ApiBystructure.Infrastructure.Handler
             }
             return result;
            
+        }
+        public async Task<List<EmployeeModel>> GetAllEmployeeAsync()
+        {
+            List<EmployeeModel> employees = new List<EmployeeModel>();
+            try
+            {
+                employees = await _employeeService.GetAllEmployeeAync();
+                if(employees == null)
+                {
+                    _logger.LogError($"EmployeeHandle/GetAllEmployeesAsnc null");
+                    throw new ArgumentNullException(nameof(employees));
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return employees;
+        }
+        public async Task<EmployeeModel> GetEmployeeByIdAsync(long id)
+        {
+            var employee = new EmployeeModel();
+            try
+            {
+                employee = await _employeeService.GetByIdEmployee(id);
+                if (employee == null)
+                {
+                    _logger.LogError($"EmployeeHandle/GetbyidEmployeesAsnc null");
+                    throw new ArgumentNullException(nameof(employee));
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return employee;
+        }
+        public async Task<bool> UpdateEmployeebyIdAsync(long id,EmployeeModel employeeModel)
+        {
+            var result = false;
+            try
+            {
+                if(id == null || employeeModel == null)
+                {
+                    _logger.LogError($"EmployeeHandle/GetAllEmployeesAsnc null");
+                    throw new ArgumentNullException(nameof(employeeModel));
+
+                }
+                result = await _employeeService.UpdateEmployeeByid(id, employeeModel);
+                
+            }catch(Exception ex)
+            {
+
+            }
+            return result;
+        }
+        public async Task<bool> DeleteEmployeeById(long id)
+        {
+            var result = false;
+            try
+            {
+                if (id == null)
+                {
+                    _logger.LogError($"EmployeeHandle/GetAllEmployeesAsnc null");
+                    throw new ArgumentNullException(nameof(id));
+
+                }
+                result = await _employeeService.DeleteEmployeebyid(id);
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return result;
+
         }
     }
 }

@@ -13,7 +13,8 @@ namespace Employee.microserivce.services.Infrastructure.Builder.MapperProfile
     {
         public modelToDtoMapperProfile()
         {
-            CreateMap<EmployeeModel, EmployeeDto>().ReverseMap();
+            CreateMap<EmployeeModel, EmployeeDto>();
+            CreateMap<EmployeeDetailModel, EmployeeDto>();
         }
     }
 }

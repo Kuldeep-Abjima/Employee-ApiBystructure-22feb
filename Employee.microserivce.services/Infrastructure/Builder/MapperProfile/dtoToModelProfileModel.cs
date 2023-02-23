@@ -14,6 +14,7 @@ namespace Employee.microserivce.services.Infrastructure.Builder.MapperProfile
         public dtoToModelProfileModel()
         {
             CreateMap<EmployeeDto, EmployeeModel>();
+            CreateMap<EmployeeDto, EmployeeDetailModel>();
         }
     }
 }
